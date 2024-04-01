@@ -12,7 +12,7 @@ This is a work in progress lecture series that helps to get started with
 
 ## References
 
-These lecture series uses some of the examples and inspiration from the following sources
+This lecture series uses some of the examples and inspiration from the following sources
 
 - [QuantEcon's JAX series](https://jax.quantecon.org/intro.html)
 - [JAX Documentation](https://jax.readthedocs.io/en/latest/index.html)
