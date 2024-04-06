@@ -1,0 +1,11 @@
+format: jb-book
+root: index
+parts:
+- caption: Lectures
+  numbered: true
+  chapters:
+  - file: lecture_01
+  - file: lecture_02
+  - file: lecture_03
+  - file: lecture_04
+  - file: lecture_05
