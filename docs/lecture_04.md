@@ -59,7 +59,7 @@ Suppose that we want to evaluate this function on a square grid of $ x $ and $ y
 
 To clarify, here is the slow `for` loop version.
 
-```python hide-output=false
+```python
 @jax.jit
 def f(x, y):
     return jnp.cos(x**2 + y**2) / (1 + x**2 + y**2)
@@ -71,7 +71,7 @@ y = x
 z_loops = np.empty((n, n))
 ```
 
-```python hide-output=false
+```python
 %%time
 
 for i in range(n):
@@ -87,78 +87,78 @@ OK, so how can we do the same operation in vectorized form?
 
 If you are new to vectorization, you might guess that we can simply write
 
-```python hide-output=false
+```python
 z_bad = f(x, y)
 ```
 
 But this gives us the wrong result because JAX doesn’t understand the nested for loop.
 
-```python hide-output=false
+```python
 z_bad.shape
 ```
 
 Here is what we actually wanted:
 
-```python hide-output=false
+```python
 z_loops.shape
 ```
 
 To get the right shape and the correct nested for loop calculation, we can use a `meshgrid` operation designed for this purpose:
 
-```python hide-output=false
+```python
 x_mesh, y_mesh = jnp.meshgrid(x, y)
 ```
 
 Now we get what we want and the execution time is very fast.
 
-```python hide-output=false
+```python
 %%time
 
-z_mesh = f(x_mesh, y_mesh) 
+z_mesh = f(x_mesh, y_mesh)
 ```
 
-```python hide-output=false
+```python
 %%time
 
-z_mesh = f(x_mesh, y_mesh) 
+z_mesh = f(x_mesh, y_mesh)
 ```
 
 Let’s confirm that we got the right answer.
 
-```python hide-output=false
+```python
 jnp.allclose(z_mesh, z_loops)
 ```
 
 Now we can set up a serious grid and run the same calculation (on the larger grid) in a short amount of time.
 
-```python hide-output=false
+```python
 n = 6000
 x = jnp.linspace(-2, 2, n)
 y = x
 x_mesh, y_mesh = jnp.meshgrid(x, y)
 ```
 
-```python hide-output=false
+```python
 %%time
 
-z_mesh = f(x_mesh, y_mesh) 
+z_mesh = f(x_mesh, y_mesh)
 ```
 
-```python hide-output=false
+```python
 %%time
 
-z_mesh = f(x_mesh, y_mesh) 
+z_mesh = f(x_mesh, y_mesh)
 ```
 
 But there is one problem here: the mesh grids use a lot of memory.
 
-```python hide-output=false
+```python
 x_mesh.nbytes + y_mesh.nbytes
 ```
 
 By comparison, the flat array `x` is just
 
-```python hide-output=false
+```python
 x.nbytes  # and y is just a pointer to x
 ```
 
@@ -176,8 +176,8 @@ from inner most loop to outer most.
 
 Here in our example, first we vectorize `f` in `y` because `y` is in the inner loop.
 
-```python hide-output=false
-f_vec_y = jax.vmap(f, in_axes=(None, 0))  
+```python
+f_vec_y = jax.vmap(f, in_axes=(None, 0))
 ```
 
 In the line above, `(None, 0)` indicates that we are vectorizing in the second argument, which is `y`.
@@ -185,19 +185,19 @@ In the line above, `(None, 0)` indicates that we are vectorizing in the second a
 Next, we vectorize in the first argument, which is `x` and used in the outer loop using
 `f_vec_y`.
 
-```python hide-output=false
+```python
 f_vec = jax.vmap(f_vec_y, in_axes=(0, None))
 ```
 
 With this construction, we can now call the function $ f $ on flat (low memory) arrays.
 
-```python hide-output=false
+```python
 %%time
 
 z_vmap = f_vec(x, y)
 ```
 
-```python hide-output=false
+```python
 %%time
 
 z_vmap = f_vec(x, y)
@@ -211,7 +211,7 @@ The execution time is essentially the same as the mesh operation but we are usin
 
 And we produce the correct answer:
 
-```python hide-output=false
+```python
 jnp.allclose(z_vmap, z_mesh)
 ```
 

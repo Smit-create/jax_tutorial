@@ -43,7 +43,7 @@ import jax
 import jax.numpy as jnp
 ```
 
-```python hide-output=false
+```python
 def f(x):
     a = 3*x + jnp.sin(x) + jnp.cos(x**2) - jnp.cos(2*x) - x**2 * 0.4 * x**1.5
     return jnp.sum(a)
@@ -51,14 +51,14 @@ def f(x):
 
 Let’s build an array to call the function on.
 
-```python hide-output=false
+```python
 n = 50_000_000
 x = jnp.ones(n)
 ```
 
 How long does the function take to execute?
 
-```python hide-output=false
+```python
 %time f(x).block_until_ready()
 ```
 
@@ -73,7 +73,7 @@ The code doesn’t run as fast as we might hope, given that it’s running on a 
 
 But if we run it a second time it becomes much faster:
 
-```python hide-output=false
+```python
 %time f(x).block_until_ready()
 ```
 
@@ -91,12 +91,12 @@ specialized to floating point arrays of size `n = 50_000_000`.
 
 We can check this by calling `f` with a new array of different size.
 
-```python hide-output=false
+```python
 m = 50_000_001
 y = jnp.ones(m)
 ```
 
-```python hide-output=false
+```python
 %time f(y).block_until_ready()
 ```
 
@@ -107,14 +107,14 @@ size.
 If we run again, the code is dispatched to the correct compiled version and we
 get faster execution.
 
-```python hide-output=false
+```python
 %time f(y).block_until_ready()
 ```
 
 The compiled versions for the previous array size are still available in memory
 too, and the following call is dispatched to the correct compiled code.
 
-```python hide-output=false
+```python
 %time f(x).block_until_ready()
 ```
 
@@ -122,19 +122,19 @@ too, and the following call is dispatched to the correct compiled code.
 
 We can do even better if we manually JIT-compile the outer function.
 
-```python hide-output=false
+```python
 f_jit = jax.jit(f)   # target for JIT compilation
 ```
 
 Let’s run once to compile it:
 
-```python hide-output=false
+```python
 f_jit(x)
 ```
 
 And now let’s time it.
 
-```python hide-output=false
+```python
 %time f_jit(x).block_until_ready()
 ```
 
@@ -145,7 +145,7 @@ This is because the array operations are fused and no intermediate arrays are cr
 Incidentally, a more common syntax when targetting a function for the JIT
 compiler is
 
-```python hide-output=false
+```python
 @jax.jit
 def f(x):
     a = 3*x + jnp.sin(x) + jnp.cos(x**2) - jnp.cos(2*x) - x**2 * 0.4 * x**1.5
@@ -175,8 +175,8 @@ A pure function will always return the same result if invoked with the same inpu
 
 In particular, a pure function has
 
-- no dependence on global variables and  
-- no side effects  
+- no dependence on global variables and
+- no side effects
 
 
 JAX will not usually throw errors when compiling impure functions but execution becomes unpredictable.
@@ -184,7 +184,7 @@ JAX will not usually throw errors when compiling impure functions but execution 
 Here’s an illustration of this fact, using global variables:
 <!-- #endregion -->
 
-```python hide-output=false
+```python
 a = 1  # global
 
 @jax.jit
@@ -192,11 +192,11 @@ def f(x):
     return a + x
 ```
 
-```python hide-output=false
+```python
 x = jnp.ones(2)
 ```
 
-```python hide-output=false
+```python
 f(x)
 ```
 
@@ -204,21 +204,21 @@ In the code above, the global value `a=1` is fused into the jitted function.
 
 Even if we change `a`, the output of `f` will not be affected — as long as the same compiled version is called.
 
-```python hide-output=false
+```python
 a = 42
 ```
 
-```python hide-output=false
+```python
 f(x)
 ```
 
 Changing the dimension of the input triggers a fresh compilation of the function, at which time the change in the value of `a` takes effect:
 
-```python hide-output=false
+```python
 x = jnp.ones(3)
 ```
 
-```python hide-output=false
+```python
 f(x)
 ```
 

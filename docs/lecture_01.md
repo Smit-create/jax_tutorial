@@ -27,46 +27,46 @@ similarities and differences.
 
 The following import is standard, replacing `import numpy as np`:
 
-```python hide-output=false
+```python
 import jax
 import jax.numpy as jnp
 ```
 
 Now we can use `jnp` in place of `np` for the usual array operations:
 
-```python hide-output=false
+```python
 a = jnp.asarray((1.0, 3.2, -1.5))
 ```
 
-```python hide-output=false
+```python
 print(a)
 ```
 
-```python hide-output=false
+```python
 print(jnp.sum(a))
 ```
 
-```python hide-output=false
+```python
 print(jnp.mean(a))
 ```
 
-```python hide-output=false
+```python
 print(jnp.dot(a, a))
 ```
 
 However, the array object `a` is not a NumPy array:
 
-```python hide-output=false
+```python
 a
 ```
 
-```python hide-output=false
+```python
 type(a)
 ```
 
 Even scalar-valued maps on arrays return JAX arrays.
 
-```python hide-output=false
+```python
 jnp.sum(a)
 ```
 
@@ -77,21 +77,21 @@ hardware accelerator (GPU or TPU).
 
 Operations on higher dimensional arrays are also similar to NumPy:
 
-```python hide-output=false
+```python
 A = jnp.ones((2, 2))
 B = jnp.identity(2)
 A @ B
 ```
 
-```python hide-output=false
+```python
 from jax.numpy import linalg
 ```
 
-```python hide-output=false
+```python
 linalg.inv(B)   # Inverse of identity is identity
 ```
 
-```python hide-output=false
+```python
 linalg.eigh(B)  # Computes eigenvalues and eigenvectors
 ```
 
@@ -103,13 +103,13 @@ This is standard for GPU computing and can lead to significant speed gains with 
 
 However, for some calculations precision matters.  In these cases 64 bit floats can be enforced via the command
 
-```python hide-output=false
+```python
 jax.config.update("jax_enable_x64", True)
 ```
 
 Let’s check this works:
 
-```python hide-output=false
+```python
 jnp.ones(3)
 ```
 
@@ -117,7 +117,7 @@ As a NumPy replacement, a more significant difference is that arrays are treated
 
 For example, with NumPy we can write
 
-```python hide-output=false
+```python
 import numpy as np
 a = np.linspace(0, 1, 3)
 a
@@ -125,31 +125,31 @@ a
 
 and then mutate the data in memory:
 
-```python hide-output=false
+```python
 a[0] = 1
 a
 ```
 
 In JAX this fails:
 
-```python hide-output=false
+```python
 a = jnp.linspace(0, 1, 3)
 a
 ```
 
-```python hide-output=false
+```python
 a[0] = 1
 ```
 
 In line with immutability, JAX does not support inplace operations:
 
-```python hide-output=false
+```python
 a = np.array((2, 1))
 a.sort()
 a
 ```
 
-```python hide-output=false
+```python
 a = jnp.array((2, 1))
 a_new = a.sort()
 a, a_new
@@ -160,22 +160,22 @@ functional programming style.  More on this below.
 
 Note that, while mutation is discouraged, it is in fact possible with `at`, as in
 
-```python hide-output=false
+```python
 a = jnp.linspace(0, 1, 3)
 id(a)
 ```
 
-```python hide-output=false
+```python
 a
 ```
 
-```python hide-output=false
+```python
 a.at[0].set(1)
 ```
 
 We can check that the array is mutated by verifying its identity is unchanged:
 
-```python hide-output=false
+```python
 id(a)
 ```
 
@@ -183,54 +183,54 @@ id(a)
 
 Random numbers are also a bit different in JAX, relative to NumPy.  Typically, in JAX, the state of the random number generator needs to be controlled explicitly.
 
-```python hide-output=false
+```python
 import jax.random as random
 ```
 
 First we produce a key, which seeds the random number generator.
 
-```python hide-output=false
+```python
 key = random.PRNGKey(1)
 ```
 
-```python hide-output=false
+```python
 type(key)
 ```
 
-```python hide-output=false
+```python
 print(key)
 ```
 
 Now we can use the key to generate some random numbers:
 
-```python hide-output=false
+```python
 x = random.normal(key, (3, 3))
 x
 ```
 
 If we use the same key again, we initialize at the same seed, so the random numbers are the same:
 
-```python hide-output=false
+```python
 random.normal(key, (3, 3))
 ```
 
 To produce a (quasi-) independent draw, best practice is to “split” the existing key:
 
-```python hide-output=false
+```python
 key, subkey = random.split(key)
 ```
 
-```python hide-output=false
+```python
 random.normal(key, (3, 3))
 ```
 
-```python hide-output=false
+```python
 random.normal(subkey, (3, 3))
 ```
 
 The function below produces `k` (quasi-) independent random `n x n` matrices using this procedure.
 
-```python hide-output=false
+```python
 def gen_random_matrices(key, n, k):
     matrices = []
     for _ in range(k):
@@ -239,7 +239,7 @@ def gen_random_matrices(key, n, k):
     return matrices
 ```
 
-```python hide-output=false
+```python
 matrices = gen_random_matrices(key, 2, 2)
 for A in matrices:
     print(A)
@@ -247,7 +247,7 @@ for A in matrices:
 
 One point to remember is that JAX expects tuples to describe array shapes, even for flat arrays.  Hence, to get a one-dimensional array of normal random draws we use `(len, )` for the shape, as in
 
-```python hide-output=false
+```python
 random.normal(key, (5, ))
 ```
 
