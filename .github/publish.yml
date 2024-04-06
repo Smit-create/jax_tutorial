@@ -30,25 +30,9 @@ jobs:
           python-version: "3.11"
           environment-file: environment.yml
           activate-environment: jt
-      - name: Install latex dependencies
-        run: |
-          sudo apt-get -qq update
-          sudo apt-get install -y     \
-            texlive-latex-recommended \
-            texlive-latex-extra       \
-            texlive-fonts-recommended \
-            texlive-fonts-extra       \
-            texlive-xetex             \
-            latexmk                   \
-            xindy                     \
-            dvipng                    \
-            cm-super
       - name: Display Conda Environment Versions
         shell: bash -l {0}
         run: conda list
-      - name: Display Pip Versions
-        shell: bash -l {0}
-        run: pip list
       # Build HTML (Website)
       - name: Build HTML
         shell: bash -l {0}
@@ -59,7 +43,6 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           path: "_build/html"
-
       # Deploy the book's HTML to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
