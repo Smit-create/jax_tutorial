@@ -1,4 +1,6 @@
-# Index Page
+# JAX Tutorial Series
+
+### Written by [Smit Lunagariya](https://github.com/Smit-create)
 
 Welcome to JAX series
 
