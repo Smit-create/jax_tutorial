@@ -9,9 +9,9 @@ kernelspec:
   name: python3
 ---
 
-# A First Course in JAX
+# JAX Tutorials
 
-## JAX Tutorial Series by [Smit Lunagariya](https://github.com/Smit-create)
+This website presents introductory lectures on JAX, designed and written by [Smit Lunagariya](https://github.com/Smit-create)
 
 ```{tableofcontents}
 ```
