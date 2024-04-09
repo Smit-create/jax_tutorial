@@ -13,7 +13,7 @@ kernelspec:
 
 # Linear and Logistic regression with JAX
 
-In this lecture we will try to build a simple model of linear and logistic regression using JAX and
+In this lecture, we will try to build a simple model of linear and logistic regression using JAX and
 it's auto-grad capabilities.
 
 ## Linear regression
@@ -124,7 +124,7 @@ print("b:", params['b'])
 
 This is almost the same that we had assumed earlier while creating our dataset.
 
-+++
+
 
 ## Logistic regression
 

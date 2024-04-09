@@ -13,7 +13,7 @@ kernelspec:
 
 # JIT-compilation, Functional Programming and Gradients
 
-+++
+
 
 ## Just-In-Time (JIT) compilation
 
@@ -183,7 +183,7 @@ While JIT compilation can improve performance, there are some limitations and co
 - **Memory Usage**: Compiled functions may consume more memory due to the generated machine code.
 - **Dynamic Features**: Some Python features, such as dynamic control flow or variable-length data structures, may limit the effectiveness of JIT compilation.
 
-+++
+
 
 ## Functional Programming
 
@@ -261,7 +261,7 @@ f(x)
 
 Moral of the story: write pure functions when using JAX!
 
-+++
+
 
 ## Automatic Differentiation
 
@@ -275,7 +275,7 @@ AD computes derivatives by recursively applying the chain rule to decompose a fu
 
 ### Gradients
 
-+++
+
 
 JAX provides the `grad` function to compute gradients of scalar functions. Let's see a simple example:
 
@@ -322,7 +322,7 @@ print("Gradient of g at (0, 0):", result)
 
 In this example, `argnums=(0, 1)` specifies that we want to compute the gradient with respect to both the first and second arguments of the function `g`.
 
-+++
+
 
 #### Using `jax.value_and_grad` for Function and Gradient Computation
 
@@ -351,7 +351,7 @@ print("Hessian of f at x=2:", result)
 
 The `hessian` function computes the Hessian matrix of the function `f`, which represents the matrix of second-order partial derivatives.
 
-+++
+
 
 ### Computing Jacobians
 

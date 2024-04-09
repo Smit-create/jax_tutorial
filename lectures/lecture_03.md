@@ -13,7 +13,7 @@ kernelspec:
 
 # Loops and Conditions in JAX
 
-+++
+
 
 ## Introduction to Loops in JAX
 
@@ -73,7 +73,7 @@ sum_squares_jax(0, 10)
 
 In this example, we define a function `sum_squares_jax` that computes the sum of squares from a given start value to an end value using `jax.lax.fori_loop`. The `body_fun` function squares each number from the loop index `i` and accumulates the result in the `total` variable. Finally, the loop is executed with the specified start and end values, and the result is returned.
 
-+++
+
 
 ### Using `jax.lax.while_loop`
 
@@ -130,7 +130,7 @@ In this example, we define a function `factorial_jax` that computes the factoria
 Since in the final result we get the value of `(i, result)`, we ignore the first value
 and return the result.
 
-+++
+
 
 ### Using `jax.lax.scan`
 
@@ -184,7 +184,7 @@ cumulative_sums_jax(jnp.array(nums))
 
 In this example, we define a function `cumulative_sums_jax` that computes cumulative sums using `jax.lax.scan`. The `body` function computes the sum of the current element and the carry variable, updating both the loop variable and the carry variable. The loop iterates over the input sequence, accumulating the sums at each step, and the final result is returned.
 
-+++
+
 
 ## Conditional Execution with JAX
 
@@ -233,11 +233,11 @@ print("Sign of -10 (JAX cond):", check_sign_jax(-10))
 
 In this example, we define a function `check_sign_jax` that checks if a number is positive or negative using `jax.lax.cond`. Depending on whether the input `x` is greater than 0 (positive) or not (negative), the corresponding true or false function is executed, and the result is returned.
 
-+++
+
 
 ## Why do we need `jax.lax` ?
 
-+++
+
 
 While JAX provides high-level abstractions for numerical computing, leveraging low-level constructs from `jax.lax` can lead to significant speedups, especially when compared to traditional Python for loops.
 

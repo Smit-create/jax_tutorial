@@ -24,7 +24,7 @@ execute:
     - '_static/*'
 
 html:
-  baseurl: https://smit-create.github.io/
+  baseurl: https://smit-create.github.io/jax_tutorial
 
 
 sphinx:
@@ -41,7 +41,7 @@ sphinx:
     html_theme_options:
       authors:
         - name: Smit Lunagariya
-          url: https://github.com/Smit-create
+          url: https://smit-create.github.io/intro.html
       repository_url: https://github.com/Smit-create/jax_tutorial
       description: This website presents introductory lectures on JAX, designed and written by Smit Lunagariya.
       keywords: Python, JAX

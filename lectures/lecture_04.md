@@ -261,7 +261,7 @@ Vectorizing computations with `jax.vmap` offers several benefits:
 - **Scalability**: Vectorization enables scaling computations to larger datasets or batch sizes without significant performance degradation, making it suitable for machine learning tasks and scientific computing.
 - **Nested Vmaps**: Once can easily replace a sequence of python loops using a sequence of `jax.vmap` and JAX handles all the optimizations.
 
-+++
+
 
 ## Introduction to parallelization
 
@@ -300,7 +300,7 @@ to parallelize your execution. The only note while using `pmap` is that:
 
 The mapped `axis` size must be less than or equal to the number of local XLA devices available, as returned by `jax.local_device_count()` (unless devices is specified, see below). For nested `pmap` calls, the product of the mapped axis sizes must be less than or equal to the number of XLA devices.
 
-+++
+
 
 ### Benefits of Parallelization with JAX
 
