@@ -11,7 +11,7 @@ kernelspec:
 
 # JAX Tutorials
 
-This website presents introductory tutorials on JAX, designed and written by [Smit Lunagariya](https://smit-create.github.io/intro.html)
+This website presents introductory tutorials on JAX, designed and written by [Smit Lunagariya](https://smit-create.github.io/intro.html).
 
 [JAX](https://jax.readthedocs.io/en/latest/notebooks/quickstart.html) is a powerful library that revolutionizes numerical computing with its
 innovative approach to automatic differentiation and efficient execution
