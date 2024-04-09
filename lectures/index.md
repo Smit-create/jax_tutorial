@@ -21,3 +21,10 @@ frontiers in machine learning and scientific computing.
 
 ```{tableofcontents}
 ```
+
+## References
+
+This lecture series uses some of the examples and inspiration from the following sources
+
+- [QuantEcon's JAX lectures](https://jax.quantecon.org/)
+- [JAX Documentation](https://jax.readthedocs.io/en/latest/index.html)
